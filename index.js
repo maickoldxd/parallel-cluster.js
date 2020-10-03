@@ -8,11 +8,16 @@ ffmpeg(path.join(__dirname,`videos/prueba.mp4`))
     .videoBitrate(2500)
     .fps(29.7)
     .output("resultado.mp4")
-    .duration(2)
+    .duration(900)
     .outputOptions([
         `-vf subtitles=${path.join(__dirname,`videos/subs.ass`)}`,
         `-threads 0`
     ])
+    .addOption('-vf', 'movie='+path.join(__dirname,`videos/2.png`)+ ' [watermark]; [in] [watermark] overlay=0:0 [out]')
+    .on('error', function(err, stdout, stderr) {
+        console.log('error: ' + err.message);
+        console.log('stderr:' + stderr);
+      })
     .on('start', function(commandLine) {
         console.log(`video process start: `);
     })
