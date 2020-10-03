@@ -1,0 +1,15 @@
+{
+  "name": "parallel-cluster",
+  "version": "1.0.0",
+  "description": "A video transcoding solution that you can scale as many as you can",
+  "main": "index.js",
+  "scripts": {
+    "start": "",
+    "dev":"nodemon index.js"
+  },
+  "author": "Maickol Amador",
+  "license": "MIT",
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2"
+  }
+}
