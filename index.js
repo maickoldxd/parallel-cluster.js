@@ -1,19 +1,20 @@
-var ffmpeg = require('fluent-ffmpeg');
+const ffmpeg = require('fluent-ffmpeg');
 const path = require('path')
-var command = ffmpeg();
 
 
 ffmpeg(path.join(__dirname,`videos/prueba.mp4`))
-    .size("1280x720")
+    .input(path.join(__dirname,`videos/2.png`))
     .videoBitrate(2500)
     .fps(29.7)
     .output("resultado.mp4")
-    .duration(900)
-    .outputOptions([
-        `-vf subtitles=${path.join(__dirname,`videos/subs.ass`)}`,
-        `-threads 0`
+    .duration(2)
+    .complexFilter([
+        `[0:v]scale=1280:720[bg]`,
+        `[bg][1:v]overlay=10:10, subtitles=${path.join(__dirname,`videos/subs.ass`)}`
     ])
-    .addOption('-vf', 'movie='+path.join(__dirname,`videos/2.png`)+ ' [watermark]; [in] [watermark] overlay=0:0 [out]')
+    .outputOptions([
+        '-threads', 0
+    ])
     .on('error', function(err, stdout, stderr) {
         console.log('error: ' + err.message);
         console.log('stderr:' + stderr);
